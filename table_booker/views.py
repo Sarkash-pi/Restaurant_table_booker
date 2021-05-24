@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 
+from .forms import UserForm
 from .models import Restaurant
 
 
@@ -38,8 +39,23 @@ def login_page(request):
 
 
 def logout_page(request):
-    return render(request, "logout.html", context={})
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("table_booker:login")
 
 
 def signup_page(request):
-    return render(request, "signup.html", context={})
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Regestration successful.")
+            return redirect("table_booker:home")
+        messages.error(request, "Unsuccessful regestration. Invalid information")
+    form = UserForm
+    return render(
+        request=request,
+        template_name="signup.html",
+        context={"register_form": form},
+    )
