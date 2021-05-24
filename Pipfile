@@ -5,12 +5,12 @@ name = "pypi"
 
 [packages]
 django = "==3.2"
+psycopg2-binary = "*"
 
 [dev-packages]
 black = "==21.4b2"
 isort = "==5.8.0"
 flake8 = "==3.9.1"
-
 
 [requires]
 python_version = "3.8"
