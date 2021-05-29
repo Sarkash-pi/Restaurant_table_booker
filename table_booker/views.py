@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+
+# from django.core import exceptions
 from django.shortcuts import redirect, render
 
 from .forms import BookingForm, UserForm
@@ -29,7 +31,7 @@ def book_restaurant(request, restaurant_id):
         return redirect("table_booker:home")
 
     if request.method == "POST":
-        form = BookingForm(request.POST)
+        form = BookingForm(restaurant, request.POST)
 
         if form.is_valid():
             booking = form.save(commit=False)
@@ -38,8 +40,9 @@ def book_restaurant(request, restaurant_id):
             booking.save()
             messages.info(request, f"You successfully booked {restaurant}")
             return redirect("table_booker:home")
+
     else:
-        form = BookingForm
+        form = BookingForm(restaurant)
 
     return render(
         request=request,
