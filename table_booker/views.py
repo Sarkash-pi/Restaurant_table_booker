@@ -66,7 +66,7 @@ def login_page(request):
             else:
                 messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request, "Invalid username or password")
+            messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(
         request=request,
