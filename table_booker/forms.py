@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Booking
+from .models import Booking, Table
 
 
 class UserForm(UserCreationForm):
@@ -40,9 +40,18 @@ class BookingForm(forms.ModelForm):
         ),
     )
 
-    class meta:
+    def __init__(self, restaurant, *args, **kwargs):
+        super(BookingForm, self).__init__(*args, **kwargs)
+        self.fields["table"].queryset = Table.objects.filter(
+            restaurant_id=restaurant.id
+        )
+
+    class Meta:
         model = Booking
-        fields = ("table", "date")
+        fields = (
+            "table",
+            "date",
+        )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -50,4 +59,6 @@ class BookingForm(forms.ModelForm):
 
         if date:
             if date < timezone.now():
-                raise ValidationError("Date cannot be in the past")
+                raise ValidationError(
+                    "Date cannot be in the past", params={"date", date}
+                )

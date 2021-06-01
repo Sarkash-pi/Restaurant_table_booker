@@ -22,6 +22,7 @@ def book_restaurant(request, restaurant_id):
         return redirect("table_booker:login")
 
     try:
+
         restaurant = Restaurant.objects.get(id=restaurant_id)
     except Restaurant.DoesNotExist:
         restaurant = None
