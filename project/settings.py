@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "table_booker.apps.TableBookerConfig",
+    "django_nose",
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
+
+NOSE_ARGS = [
+    "--with-coverage",
+    "--cover-package=table_booker",
 ]
 
 ROOT_URLCONF = "project.urls"
