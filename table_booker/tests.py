@@ -172,3 +172,15 @@ class TestBookingRestaurant(TestCase):
         booking_form = response.context["booking_form"]
         self.assertEqual(response.status_code, 200)
         self.assertEqual(booking_form.is_valid(), False)
+
+
+class TestLogout(TestCase):
+    def setUp(self):
+        self.url = "/logout"
+        self.response = self.client.get(self.url, follow=True)
+
+    def test_logout(self):
+        message = list(self.response.context.get("messages"))[0]
+        self.assertEqual(message.tags, "info")
+        self.assertEqual(message.message, "You have successfully logged out.")
+        self.assertRedirects(self.response, "/login", status_code=302)
