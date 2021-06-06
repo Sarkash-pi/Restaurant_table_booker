@@ -1,13 +1,11 @@
 import datetime
 
-from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from .factories import RestaurantFactory, TableFactory, UserFactory
 from .forms import BookingForm, UserForm
-from .models import Restaurant
+from .models import Restaurant, Table
 
 
 class HomePageTests(TestCase):
@@ -72,7 +70,7 @@ class LoginPageTest(TestCase):
         self.assertTrue("Invalid username or password." in message.message)
 
 
-class TestSignUpPage(TestCase):
+class SignUpPageTest(TestCase):
     def setUp(self):
         self.url = "/signup"
         self.response = self.client.get(self.url)
@@ -118,7 +116,19 @@ class TestSignUpPage(TestCase):
         )
 
 
-class TestBookingRestaurant(TestCase):
+class LogoutPageTest(TestCase):
+    def setUp(self):
+        self.url = "/logout"
+        self.response = self.client.get(self.url, follow=True)
+
+    def test_logout(self):
+        message = list(self.response.context.get("messages"))[0]
+        self.assertEqual(message.tags, "info")
+        self.assertEqual(message.message, "You have successfully logged out.")
+        self.assertRedirects(self.response, "/login", status_code=302)
+
+
+class BookingRestaurantTest(TestCase):
     def setUp(self):
         self.user = UserFactory()
         self.restaurant = RestaurantFactory()
@@ -173,14 +183,14 @@ class TestBookingRestaurant(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(booking_form.is_valid(), False)
 
+    def test_table_queryset(self):
+        TableFactory()
 
-class TestLogout(TestCase):
-    def setUp(self):
-        self.url = "/logout"
-        self.response = self.client.get(self.url, follow=True)
+        self.client.force_login(self.user)
+        response = self.client.get(self.url, follow=True)
+        context_form = response.context["booking_form"]
 
-    def test_logout(self):
-        message = list(self.response.context.get("messages"))[0]
-        self.assertEqual(message.tags, "info")
-        self.assertEqual(message.message, "You have successfully logged out.")
-        self.assertRedirects(self.response, "/login", status_code=302)
+        current_queryset = context_form.fields["table"].queryset
+        expected_queryset = Table.objects.filter(restaurant_id=self.restaurant.id)
+
+        self.assertEqual(list(current_queryset), list(expected_queryset))

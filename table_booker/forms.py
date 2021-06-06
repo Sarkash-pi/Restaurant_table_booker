@@ -48,10 +48,7 @@ class BookingForm(forms.ModelForm):
 
     class Meta:
         model = Booking
-        fields = (
-            "table",
-            "date",
-        )
+        fields = ("table", "date")
 
     def clean(self):
         cleaned_data = super().clean()
