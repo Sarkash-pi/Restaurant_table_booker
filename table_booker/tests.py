@@ -196,6 +196,13 @@ class BookingRestaurantTest(TestCase):
 
         self.assertEqual(list(current_queryset), list(expected_queryset))
 
+    def test_restaurant_context(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url, follow=True)
+        context_restaurant = response.context["restaurant"]
+
+        self.assertEqual(context_restaurant, self.restaurant)
+
 
 class MyBookingTests(TestCase):
     def setUp(self):

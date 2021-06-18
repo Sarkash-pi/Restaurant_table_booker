@@ -22,7 +22,6 @@ def book_restaurant(request, restaurant_id):
         return redirect("table_booker:login")
 
     try:
-
         restaurant = Restaurant.objects.get(id=restaurant_id)
     except Restaurant.DoesNotExist:
         restaurant = None
@@ -48,7 +47,7 @@ def book_restaurant(request, restaurant_id):
     return render(
         request=request,
         template_name="book_restaurant.html",
-        context={"booking_form": form},
+        context={"booking_form": form, "restaurant": restaurant},
     )
 
 
@@ -79,7 +78,7 @@ def update_booking(request, booking_id):
         if form.is_valid():
             form.save()
             messages.info(
-                request, f"You successfully updates {booking.restaurant.name} booking"
+                request, f"You successfully updated {booking.restaurant.name} booking"
             )
             return redirect("table_booker:my-bookings")
 
