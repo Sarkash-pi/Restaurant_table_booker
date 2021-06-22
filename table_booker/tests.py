@@ -165,6 +165,7 @@ class BookingRestaurantTest(TestCase):
             "user": self.user,
             "restaurant": self.restaurant.id,
             "table": self.restaurant.tables.first().id,
+            "total_guests": 2,
             "date": book_date(),
         }
         response = self.client.post(self.url, data, follow=True)
@@ -311,6 +312,7 @@ class UpdateMyBookingsTests(TestCase):
         data = {
             "table": window_table.id,
             "date": book_date(),
+            "total_guests": 2,
         }
 
         response = self.client.post(self.url, data, follow=True)
@@ -360,11 +362,8 @@ class BookingFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors["total_guests"],
-            ["Cannot book 0 guests"],
+            ["Cannot book 0 or less guests"],
         )
-
-
-##
 
 
 def book_date(days=3, hours=1, minutes=30, past=False):

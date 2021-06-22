@@ -32,6 +32,7 @@ class Booking(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     date = models.DateTimeField()
+    total_guests = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
