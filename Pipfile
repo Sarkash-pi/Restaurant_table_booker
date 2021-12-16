@@ -8,6 +8,8 @@ django = "==3.2"
 psycopg2-binary = "*"
 django-nose = "*"
 whitenoise = "*"
+coverage = "*"
+asyncio = "*"
 
 [dev-packages]
 black = "==21.4b2"
@@ -16,6 +18,7 @@ flake8 = "==3.9.1"
 factory-boy = "==2.12.0"
 django-nose = "==1.4.7"
 coverage = "==5.5"
+bandit = "*"
 
 [requires]
 python_version = "3.8"

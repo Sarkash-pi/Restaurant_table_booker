@@ -4,7 +4,7 @@ import datetime
 from django.contrib.auth.forms import AuthenticationForm
 from django.test import TestCase
 
-from .factories import BookingFactory, RestaurantFactory, TableFactory, UserFactory
+from .factories import BookingFactory, RestaurantFactory, TableFactory, UserFactory, SettingFactory
 from .forms import BookingForm, UserForm
 from .models import Booking, Restaurant, Table
 
