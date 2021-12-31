@@ -6,9 +6,9 @@
 <p>{{ booking.restaurant.table.name }}</p>
 <p>{{ booking.date }}</p>
 
-<form method="POST">
+<form method="POST" class="btn-display">
   {% csrf_token %}
-  <button type="submit">YES, DELETE BOOKING</button>
+  <button type="submit" style="color: crimson;">YES, DELETE BOOKING</button>
 </form>
 
 {% endblock content %}
