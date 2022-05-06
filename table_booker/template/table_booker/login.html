@@ -1,8 +1,10 @@
 {% extends "base.html" %} {% block content %}
-<h1>Login</h1>
-<form method="POST" class="login">
-  {% csrf_token %} {{ login_form.as_p }}
-  <button type="submit">Login</button>
-</form>
-<p class="bottom-message">Don't have an account? <a href="/signup"> Create an account</a></p>
-{% endblock content %}
+<div class="mx-5">
+  <h1>Login</h1>
+  <form method="POST" class="login  btn-display mb-3">
+    {% csrf_token %} {{ login_form.as_p }}
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+  <p class="btn bottom-message">Don't have an account? <a href="/signup"> Create an account.</a></p>
+  {% endblock content %}
+</div>

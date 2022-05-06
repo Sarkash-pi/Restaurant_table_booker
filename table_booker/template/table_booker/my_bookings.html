@@ -1,23 +1,25 @@
 {% extends "base.html" %} {% block content %}
+<div class="mx-5">
+  <h1>My Bookings</h1>
 
-<h1>My Bookings</h1>
+  <table border="0" cellspacing="10" class="table table-hover mx-auto bg-body shadow-lg ">
+    <th class="p-3 bg-dark text-white-50">Restaurant</th>
+    <th class="p-3 bg-dark text-white-50">Table</th>
+    <th class="p-3 bg-dark text-white-50">Date</th>
+    <th class="p-3 bg-dark text-white-50">Actions</th>
 
-<table border="0" cellspacing="10">
-  <th style="padding-right: 25px;">Restaurant</th>
-  <th style="padding-right: 25px;">Table</th>
-  <th style="padding-right: 25px;">Date</th>
-  <th style="padding: 25px;">Actions</th>
+    {% for booking in bookings %}
+    <tr>
+      <td class="p-3">{{ booking.restaurant.name }}</td>
+      <td class="p-3">{{ booking.table.name }}</td>
+      <td class="p-3">{{ booking.date }}</td>
+      <td class="p-3">
+        <a href=" /delete-booking/{{ booking.id }}" class="text-danger">Delete</a>
+        <a href="/update-booking/{{ booking.id }}">Update Booking</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 
-  {% for booking in bookings %}
-  <tr>
-    <td style="padding-right: 25px;">{{ booking.restaurant.name }}</td>
-    <td style="padding-right: 25px;">{{ booking.table.name }}</td>
-    <td style="padding-right: 25px;">{{ booking.date }}</td>
-    <td style="padding: 25px; display: inline-grid;">
-      <a href="/delete-booking/{{ booking.id }}">Delete</a>
-      <a href="/update-booking/{{ booking.id }}">Update Booking</a>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+</div>
 {% endblock content %}

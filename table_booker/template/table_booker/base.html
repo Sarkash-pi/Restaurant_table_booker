@@ -20,7 +20,7 @@
       min-width: 100% !important;
       width: 100% !important;
       background: #eeecec;
-      -webkit-text-size-adjust: none
+      -webkit-text-size-adjust: none;
     }
 
     h1 {
@@ -28,9 +28,9 @@
       padding-bottom: 25px;
     }
 
-    a {
+    /* a {
       padding-right: 25px;
-    }
+    } */
 
     .signup {
       display: inline-grid;
@@ -44,34 +44,59 @@
       display: grid;
     }
 
-    .message {
-      padding-top: 25px;
+    .card-body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+    }
+
+    .card-title {
+      margin: 0;
+      padding: 0;
+      align-self: center;
     }
 
     .bottom-message {
       padding-top: 15px;
+      cursor: default;
+      padding-left: 0;
+      padding-right: 0;
+
     }
 
     .btn-display {
-      display: inline-grid;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    p {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
     }
   </style>
 </head>
 
-
 <body>
-  <div class="container">
-    <p class="message">{% include 'includes/messages.html' %}</p>
 
-    <a href="/">Home </a>
-    {% if request.user.is_authenticated %}
+  <div class="container mt-3">
+    <div>
+      <a class="text-black-50 btn " href="/">Home </a>
+      {% if request.user.is_authenticated %}
 
-    <a href="/my-bookings">My bookings </a>
-    <a href="/logout">Logout </a>
-    {% else %}
-    <a href="/signup">Signup </a>
+      <a class="text-black-50 btn " href="/my-bookings">My bookings </a>
+      <a class="text-black-50 btn " href="/logout">Logout </a>
+      {% else %}
+      <a class="text-black-50 btn " href="/signup">Signup </a>
+    </div>
     {% endif %} {% block content %} {% endblock content %}
+    <p class="message mt-5 text-secondary">{% include 'includes/messages.html' %}</p>
+
   </div>
+
 </body>
 
 </html>

@@ -1,8 +1,12 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Update Booking</h1>
+<div class="mx-5">
+  <h1>Update Booking</h1>
 
-<form method="POST" class="btn-display">
-  {% csrf_token %} {{ booking_form.as_p }}
-  <button type="submit">Update Booking</button>
-</form>
-{% endblock content %}
+
+  <form method="POST" class="btn-display mb-3">
+    {% csrf_token %} {{ booking_form.as_p }}
+    <button type="submit" class="btn btn-primary">Update Booking</button>
+  </form>
+
+  {% endblock content %}
+</div>

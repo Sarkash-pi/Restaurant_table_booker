@@ -1,11 +1,12 @@
 {% extends "base.html" %} {% block content %}
+<div class="mx-5">
+  <h1>Book Restaurant</h1>
+  <h3 style="padding-bottom: 10px;">{{ restaurant.name }}</h3>
 
-<h1>Book Restaurant</h1>
-<h3 style="padding-bottom: 10px;">{{ restaurant.name }}</h3>
-
-<form method="POST" class="btn-display">
-  {% csrf_token %} {{ booking_form.as_p }}
-  <button type="submit">Book Restaurant</button>
-</form>
-<p class="bottom-message">Back to home page, <a href="/">home</a></p>
-{% endblock content %}
+  <form method="POST" class="btn-display mb-3">
+    {% csrf_token %} {{ booking_form.as_p }}
+    <button type="submit" class="btn btn-primary">Book Restaurant</button>
+  </form>
+  <p class="btn bottom-message">Back to home page, <a href="/">home</a></p>
+  {% endblock content %}
+</div>

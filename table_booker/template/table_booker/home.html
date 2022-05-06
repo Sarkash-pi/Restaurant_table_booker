@@ -1,12 +1,23 @@
 {% extends "base.html" %} {% block content %}
+<div class="mt-3  border-top border-2">
+  <div class="mx-5">
+    <h1 class="  ">HOME PAGE</h1>
+    {% for restaurant in restaurants %}
+    <p>
 
-<h1>HOME PAGE</h1>
-{% for restaurant in restaurants %}
-<p>
-  {{ restaurant.name }}
-  <a class="homepage" href="{% url 'table_booker:book-restaurant' restaurant.id%}">
-    book restaurant</a>
-</p>
-{% empty %}
-<p class="bottom-message">There are no records to show</p>
-{% endfor %} {% endblock content %}
+    </p>
+    <div class="card ">
+
+      <div class="card-body  ">
+        <h5 class="card-title text-black-50">{{ restaurant.name }}</h5>
+        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+        <a href="{% url 'table_booker:book-restaurant' restaurant.id%}" class="btn btn-primary">Book Restaurant</a>
+      </div>
+
+    </div>
+    {% empty %}
+    <p class="bottom-message">There are no records to show</p>
+  </div>
+  {% endfor %} {% endblock content %}
+</div>
+</div>

@@ -1,14 +1,17 @@
 {% extends 'base.html' %} {% block content %}
+<div class="mx-5">
 
-<h1>Delete Booking</h1>
-<p>Are you sure you want to delete:</p>
-<p>{{ booking.restaurant.name }}</p>
-<p>{{ booking.restaurant.table.name }}</p>
-<p>{{ booking.date }}</p>
+  <h1>Delete Booking</h1>
 
-<form method="POST" class="btn-display">
-  {% csrf_token %}
-  <button type="submit" style="color: crimson;">YES, DELETE BOOKING</button>
-</form>
+  <div class="card p-5 mx-auto" style="width: fit-content">
+    <pre class="text-center fs-5 mx-auto">Are you sure you want to delete: {{ booking.restaurant.name }} booking for
+      <span class="text-primary">{{booking.date}} <span class="text-black">?</span></span>
+    </pre>
 
+    <form method="POST" class="btn-display">
+      {% csrf_token %}
+      <button type="submit" style="width: 500px;" class="btn btn-danger mx-auto">YES, DELETE BOOKING</button>
+    </form>
+  </div>
+</div>
 {% endblock content %}
